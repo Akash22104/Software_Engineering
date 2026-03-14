@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="panel">
+  <h2>Your Health Profile</h2>
+  <p class="muted">Add your body details so we can calculate BMI and estimated daily calorie need.</p>
+
+  <form class="profile-grid" method="post" action="{{ url_for('profile_page') }}">
+    <input type="text" name="name" placeholder="Name" value="{{ profile.name or user.username }}" required />
+    <input type="number" name="age" placeholder="Age" min="10" max="100" value="{{ profile.age or '' }}" required />
+
+    <select name="gender" required>
+      <option value="" {% if not profile.gender %}selected{% endif %}>Gender</option>
+      <option value="male" {% if profile.gender == 'male' %}selected{% endif %}>Male</option>
+      <option value="female" {% if profile.gender == 'female' %}selected{% endif %}>Female</option>
+      <option value="other" {% if profile.gender == 'other' %}selected{% endif %}>Other</option>
+    </select>
+
+    <input type="number" name="height_cm" placeholder="Height (cm)" min="80" max="250" step="0.1" value="{{ profile.height_cm or '' }}" required />
+    <input type="number" name="weight_kg" placeholder="Weight (kg)" min="20" max="300" step="0.1" value="{{ profile.weight_kg or '' }}" required />
+
+    <select name="activity" required>
+      <option value="" {% if not profile.activity %}selected{% endif %}>Activity level</option>
+      <option value="sedentary" {% if profile.activity == 'sedentary' %}selected{% endif %}>Sedentary</option>
+      <option value="light" {% if profile.activity == 'light' %}selected{% endif %}>Lightly active</option>
+      <option value="moderate" {% if profile.activity == 'moderate' %}selected{% endif %}>Moderately active</option>
+      <option value="active" {% if profile.activity == 'active' %}selected{% endif %}>Very active</option>
+      <option value="very_active" {% if profile.activity == 'very_active' %}selected{% endif %}>Athlete / intense activity</option>
+    </select>
+
+    <button class="primary-btn" type="submit">Save Profile</button>
+  </form>
+</section>
+
+<section class="cards-grid">
+  <article class="metric-card">
+    <h3>BMI</h3>
+    <p class="metric-value">{{ metrics.bmi }}</p>
+  </article>
+  <article class="metric-card">
+    <h3>Daily Need</h3>
+    <p class="metric-value">{{ metrics.daily_need }}</p>
+    <p class="muted">Estimated kcal/day</p>
+  </article>
+</section>
+{% endblock %}

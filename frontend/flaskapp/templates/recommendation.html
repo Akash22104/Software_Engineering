@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="panel">
+  <h2>Recommendation</h2>
+  {% if recommendation.error %}
+    <div class="alert error">{{ recommendation.error }}</div>
+  {% else %}
+    <div class="recommendation-card">
+      <p class="muted">Total Calories Logged</p>
+      <p class="metric-value">{{ recommendation.total or 0 }}</p>
+      <h3>Suggested Next Meal</h3>
+      <p>{{ recommendation.rec or 'No recommendation yet.' }}</p>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="panel">
+  <h2>Health Diet Plan</h2>
+  <form class="stack-form" method="post" action="{{ url_for('health_page') }}">
+    <input type="text" name="condition" placeholder="Enter condition (e.g., diabetes)" required />
+    <button class="primary-btn" type="submit">Generate Plan</button>
+  </form>
+
+  {% if diet_result %}
+    <div class="response-card">
+      <h3>Recommended Diet</h3>
+      <p>{{ diet_result }}</p>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="cards-grid">
+  <article class="metric-card">
+    <h3>Total Calories</h3>
+    <p class="metric-value">{{ summary.calories }}</p>
+  </article>
+  <article class="metric-card">
+    <h3>Total Protein</h3>
+    <p class="metric-value">{{ summary.protein }}g</p>
+  </article>
+  <article class="metric-card">
+    <h3>Total Water</h3>
+    <p class="metric-value">{{ summary.water }} glasses</p>
+  </article>
+  <article class="metric-card">
+    <h3>Meal Count</h3>
+    <p class="metric-value">{{ meals | length }}</p>
+  </article>
+</section>
+
+<section class="panel">
+  <h2>Meal History</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Food</th>
+          <th>Calories</th>
+          <th>Protein</th>
+          <th>Carbs</th>
+          <th>Fat</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if meals %}
+          {% for meal in meals %}
+            <tr>
+              <td>{{ meal.food }}</td>
+              <td>{{ meal.calories }}</td>
+              <td>{{ meal.protein }}</td>
+              <td>{{ meal.carbs }}</td>
+              <td>{{ meal.fat }}</td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="5" class="muted">No analytics data available yet.</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="cards-grid">
+  <article class="metric-card">
+    <h3>Today's Calories</h3>
+    <p class="metric-value">{{ summary.calories }}</p>
+    <p class="muted">{{ ((summary.calories / 2627) * 100) | int }}% of daily calorie target</p>
+  </article>
+  <article class="metric-card">
+    <h3>Protein</h3>
+    <p class="metric-value">{{ summary.protein }}g</p>
+  </article>
+  <article class="metric-card">
+    <h3>Water Intake</h3>
+    <p class="metric-value">{{ summary.water }} glasses</p>
+  </article>
+  <article class="metric-card">
+    <h3>Points</h3>
+    <p class="metric-value">10</p>
+    <p class="muted">Level 1</p>
+  </article>
+</section>
+
+<section class="panel">
+  <h2>AI Calorie & Nutrition Tracking</h2>
+  <form class="form-grid" method="post" action="{{ url_for('add_meal_submit') }}">
+    <input type="text" name="food" placeholder="Food" required />
+    <input type="number" name="calories" placeholder="Calories" min="0" required />
+    <input type="number" name="protein" placeholder="Protein" min="0" />
+    <input type="number" name="carbs" placeholder="Carbs" min="0" />
+    <input type="number" name="fat" placeholder="Fat" min="0" />
+    <div class="inline-controls">
+      <input type="number" name="water" placeholder="Water glasses" min="0" />
+      <button class="primary-btn" type="submit">Add Meal</button>
+    </div>
+  </form>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Food</th>
+          <th>Calories</th>
+          <th>Protein</th>
+          <th>Carbs</th>
+          <th>Fat</th>
+          <th>Water</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if meals %}
+          {% for meal in meals %}
+            <tr>
+              <td>{{ meal.food }}</td>
+              <td>{{ meal.calories }}</td>
+              <td>{{ meal.protein }}</td>
+              <td>{{ meal.carbs }}</td>
+              <td>{{ meal.fat }}</td>
+              <td>{{ meal.water or 0 }}</td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="6" class="muted">No meals logged yet.</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="panel">
+  <h2>AI Coach</h2>
+  <form class="stack-form" method="post" action="{{ url_for('coach_page') }}">
+    <textarea name="message" rows="4" placeholder="Ask your coach anything about your diet..." required></textarea>
+    <button class="primary-btn" type="submit">Get Advice</button>
+  </form>
+
+  {% if coach_reply %}
+    <div class="response-card">
+      <h3>Coach Reply</h3>
+      <p>{{ coach_reply }}</p>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

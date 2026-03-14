@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="cards-grid">
+  <article class="metric-card">
+    <h3>Points</h3>
+    <p class="metric-value">{{ rewards.points or 0 }}</p>
+  </article>
+  <article class="metric-card">
+    <h3>Badge</h3>
+    <p class="metric-value">{{ rewards.badge or 'Starter' }}</p>
+  </article>
+</section>
+
+<section class="panel">
+  <h2>Reward Progress</h2>
+  <div class="progress-shell">
+    <div class="progress-bar" style="width: {{ ((rewards.points or 0) / 200 * 100) | int }}%;"></div>
+  </div>
+  <p class="muted">Reach 200 points for the next level.</p>
+</section>
+{% endblock %}
